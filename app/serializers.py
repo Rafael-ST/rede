@@ -21,9 +21,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BairroSerializer(serializers.ModelSerializer):
+    # bairro = serializers.CharField(source='bairro.nome', read_only=True)
     class Meta:
         model = Bairro
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['bairro']
 
 
 class LiderDeEquipeSerializer(serializers.ModelSerializer):

@@ -26,6 +26,12 @@ class BairroListView(generics.ListAPIView):
     permission_classes = [AllowAny]
 
 
+class LiderListView(generics.ListAPIView):
+    queryset = LiderDeEquipe.objects.all()
+    serializer_class = LiderDeEquipeSerializer
+    permission_classes = [IsSuperUser]
+
+
 class LiderDeEquipeCreateView(generics.CreateAPIView):
     queryset = LiderDeEquipe.objects.all()
     serializer_class = LiderDeEquipeSerializer

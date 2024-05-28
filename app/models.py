@@ -49,6 +49,6 @@ class LiderDeEquipe(BaseModel):
     comunidades = models.TextField(verbose_name='Principais bairros/comunidade de votos', max_length=1000, null=True)
     reuniao = models.CharField(verbose_name='Já fez reunião com seus amigos?', max_length=10, choices=SIM_NAO, null=True)
     proxima_reuniao = models.DateField(verbose_name='Data da próxima reunião', null=True)
-    horario_reuniap = models.TimeField(verbose_name='Horário da próxima reunião', null=True)
+    horario_reuniao = models.TimeField(verbose_name='Horário da próxima reunião', null=True)
     local_reuniao = models.CharField(verbose_name='Local da próxima reunião', max_length=100, null=True)
-    observacao = models.TextField(verbose_name='Observação', max_length=1000, null=True)
+    observacao = models.TextField(verbose_name='Observação', max_length=1000, null=True, blank=True)
