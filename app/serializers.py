@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Bairro, LiderDeEquipe
+from .models import Bairro, LiderDeEquipe, Amigo
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -21,15 +21,27 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BairroSerializer(serializers.ModelSerializer):
-    # bairro = serializers.CharField(source='bairro.nome', read_only=True)
     class Meta:
         model = Bairro
-        # fields = '__all__'
-        exclude = ['bairro']
+        fields = '__all__'
 
 
 class LiderDeEquipeSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    bairro = serializers.PrimaryKeyRelatedField(queryset=Bairro.objects.all())
+    bairro = serializers.CharField(source='bairro.nome', read_only=True)
     class Meta:
         model = LiderDeEquipe
+        fields = '__all__'
+
+
+
+class AmigoSerializer(serializers.ModelSerializer):
+    bairro = serializers.PrimaryKeyRelatedField(queryset=Bairro.objects.all())
+    bairro = serializers.CharField(source='bairro.nome', read_only=True)
+    lider = serializers.PrimaryKeyRelatedField(queryset=LiderDeEquipe.objects.all())
+    lider = serializers.CharField(source='lider.nome', read_only=True)
+
+    class Meta:
+        model = Amigo
         fields = '__all__'

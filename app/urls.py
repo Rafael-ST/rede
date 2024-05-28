@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HelloWorld, UserCreate, BairroListView, LiderDeEquipeCreateView, LiderListView
+from .views import HelloWorld, UserCreate, BairroListView, LiderDeEquipeCreateView, LiderListView, AmigoListView, AmigoListViewAll
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -13,4 +13,6 @@ urlpatterns = [
     path('bairros/', BairroListView.as_view(), name='bairro-list'),
     path('lideresview/', LiderListView.as_view(), name='lideres-list'),
     path('lideres/', LiderDeEquipeCreateView.as_view(), name='lider-create'),
+    path('amigos/', AmigoListView.as_view(), name='amigo-list'),
+    path('amigos_all/', AmigoListViewAll.as_view(), name='amigos-all'),
 ]
