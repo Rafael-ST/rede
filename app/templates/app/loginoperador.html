@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+
+      {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{message.tags}} alert-dismissible fade show alertCad" role="alert" role="alert">
+                  <i class="icon-check icons mr-2"></i> {{ message }}
+              </div>
+          {% endfor %}
+      {% endif %}
+      {% if form.errors %}
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                     {{field.label}}: <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+      {% endif %}
+    </div>
+      <label for="username" class="form-label">Email</label>
+      <input type="email" placeholder="Email" id="email" name="email" required />
+    </div>
+    <div>
+      <label for="password">Senha</label>
+      <div>
+        <input type="password" placeholder="Sua senha" id="password3" name="senha" required />
+      </div>
+    </div>
+    <div class="">
+      <button type="submit" class="btn w-100 mx-0 rounded-pill bg-cGreen mt-md-2 text-white">Acessar sua conta</button>
+      {% comment %} <div class="mt-2 d-flex flex-column justify-content-end">
+        <a href="/cadastro" class="forgot-pass text-tGray-700 align-self-center">Cadastrar condomínio</a>
+      </div> {% endcomment %}
+    </div>
+
+  </form>
+{% endblock %}

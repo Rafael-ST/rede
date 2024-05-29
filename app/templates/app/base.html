@@ -1,0 +1,19 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+
+      {% block content %}
+
+      {% endblock %}
+
+    {% block javascript %}
+      <script src="{% static 'assets/js/main.bundle.js' %}"></script>
+    {% endblock %}
+  </body>
+</html>
