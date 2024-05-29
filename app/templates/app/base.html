@@ -15,11 +15,7 @@
       {% endblock %}
     </main>
     {% block javascript %}
-    {% if debug %}
-    <script src="http://localhost:9000/static/assets/js/main.bundle.js"></script>
-    {% else %}
     <script src="{% static 'assets/js/main.bundle.js' %}"></script>
-    {% endif %}
     {% endblock %}
   </body>
 </html>

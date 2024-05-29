@@ -1,7 +1,64 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
-  <section class="">
-olá
+  <section>
+    <div class="container-fluid">
+      <div class="bg-primary p-4 rounded-bottom mb-4 position-relative">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 text-center">
+              <img class="object-fit-scale" src="{% static 'images/logo-white.png' %}" width="64" alt="Example Image" />
+            </div>
+          </div>
+        </div>
+
+
+          <div class="dropdown position-absolute end-0 top-0 bottom-0 d-flex justify-content-center">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu p-0">
+              <div class="w-100 d-flex justify-content-center bg-primary rounded">
+                <a href="/" type="button" class="fw-bold fs-1 my-3 mx-1 text-white text-decoration-none">Sair <i class="bi bi-box-arrow-right ms-2"></i></a>
+              </div>
+            </ul>
+          </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="d-flex justify-content-between align-items-center gap-2">
+            <input type="text" class="form-control" placeholder="Pesquisar" />
+            <button class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#addUserModal">Adicionar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <ul class="list-group mt-4">
+            {% for contact in contacts %}
+              <div class="card mb-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                  <a data-bs-toggle="modal" data-bs-target="#viewUserModal">
+                    <div>
+                      <h5 class="card-title mb-1">{{ contact.nome }}</h5>
+                      <p class="card-text mb-0">{{ contact.apelido }}</p>
+                    </div>
+                  </a>
+                  <div class="btn-group" role="group" aria-label="Ações">
+                    <button type="button" class="btn btn-info me-2 text-white fw-bold"><i class="bi bi-pencil"></i> Editar</button>
+                    <button type="button" class="btn btn-warning text-white fw-bold"><i class="bi bi-trash"></i> Excluir</button>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
+
+  {% include 'app/contactadd.html' %}
+  {% include 'app/contactinfo.html' %}
 {% endblock %}

@@ -1,0 +1,140 @@
+<!-- Modal de Adicionar Novo Contato -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserModalLabel">Adicionar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <!-- Formulário de adição de usuário -->
+        <form>
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome Completo*</label>
+            <input type="text" class="form-control" id="nome" required />
+          </div>
+          <div class="mb-3">
+            <label for="apelido" class="form-label">Apelido</label>
+            <input type="text" class="form-control" id="apelido" />
+          </div>
+          <div class="mb-3">
+            <label for="dataNascimento" class="form-label">Data de Nascimento*</label>
+            <input type="date" class="form-control" id="dataNascimento" required />
+          </div>
+          <div class="mb-3">
+            <label for="cpf" class="form-label">CPF*</label>
+            <input type="text" class="form-control" id="cpf" required />
+          </div>
+          <div class="mb-3">
+            <label for="nomeMae" class="form-label">Nome da Mãe*</label>
+            <input type="text" class="form-control" id="nomeMae" required />
+          </div>
+          <div class="mb-3">
+            <label for="nomePai" class="form-label">Nome do Pai</label>
+            <input type="text" class="form-control" id="nomePai" />
+          </div>
+          <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone*</label>
+            <input type="tel" class="form-control" id="telefone" required />
+          </div>
+          <div class="mb-3">
+            <label for="whatsapp" class="form-label">É WhatsApp?</label>
+            <select class="form-select" id="whatsapp">
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" />
+          </div>
+          <div class="mb-3">
+            <label for="instagram" class="form-label">Instagram</label>
+            <input type="text" class="form-control" id="instagram" />
+          </div>
+          <div class="mb-3">
+            <label for="cep" class="form-label">CEP</label>
+            <input type="text" class="form-control" id="cep" />
+          </div>
+          <div class="mb-3">
+            <label for="endereco" class="form-label">Endereço Completo*</label>
+            <input type="text" class="form-control" id="endereco" required />
+          </div>
+          <div class="mb-3">
+            <label for="numero" class="form-label">Número*</label>
+            <input type="text" class="form-control" id="numero" required />
+          </div>
+          <div class="mb-3">
+            <label for="bairro" class="form-label">Bairro*</label>
+            <input type="text" class="form-control" id="bairro" required />
+          </div>
+          <div class="mb-3">
+            <label for="candidato" class="form-label">Já foi candidato?</label>
+            <select class="form-select" id="candidato">
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cargo" class="form-label">Se sim, qual cargo?</label>
+            <input type="text" class="form-control" id="cargo" />
+          </div>
+          <div class="mb-3">
+            <label for="ano" class="form-label">Ano?</label>
+            <input type="text" class="form-control" id="ano" />
+          </div>
+          <div class="mb-3">
+            <label for="votos" class="form-label">Quantos votos?</label>
+            <input type="number" class="form-control" id="votos" />
+          </div>
+          <div class="mb-3">
+            <label for="principaisBairros" class="form-label">Principais bairros/comunidades de votos? (Texto)</label>
+            <input type="text" class="form-control" id="principaisBairros" />
+          </div>
+          <div class="mb-3">
+            <label for="bairroComunidade1" class="form-label">Bairro/Comunidade 1:</label>
+            <input type="text" class="form-control" id="bairroComunidade1" />
+          </div>
+          <div class="mb-3">
+            <label for="bairroComunidade2" class="form-label">Bairro/Comunidade 2:</label>
+            <input type="text" class="form-control" id="bairroComunidade2" />
+          </div>
+          <div class="mb-3">
+            <label for="reuniaoAmigos" class="form-label">Já fez reunião com seus amigos?</label>
+            <select class="form-select" id="reuniaoAmigos">
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="dataProximaReuniao" class="form-label">Data da próxima reunião?</label>
+            <input type="date" class="form-control" id="dataProximaReuniao" />
+          </div>
+          <div class="mb-3">
+            <label for="horarioReuniao" class="form-label">Horário?</label>
+            <input type="time" class="form-control" id="horarioReuniao" />
+          </div>
+          <div class="mb-3">
+            <label for="localReuniao" class="form-label">Local?</label>
+            <input type="text" class="form-control" id="localReuniao" />
+          </div>
+          <div class="mb-3">
+            <label for="observacao1" class="form-label">Observação 1:</label>
+            <textarea class="form-control" id="observacao1" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="observacao2" class="form-label">Observação 2:</label>
+            <textarea class="form-control" id="observacao2" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" />
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary text-white fw-bold fs-5 py-2 px-4 m-2">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

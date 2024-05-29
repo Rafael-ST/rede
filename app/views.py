@@ -136,4 +136,51 @@ class AmigoListView(generics.ListAPIView):
             return Amigo.objects.none()
 
 def contatos(request):
-    return render(request, 'app/contatos.html')
+    contactList = [
+    {
+        "id": '1',
+        "nome": 'Davi',
+        "apelido": 'davilte'
+    },
+    {
+        "id": '2',
+        "nome": 'Rafael',
+        "apelido": 'rafa'
+    },
+    {
+        "id": '3',
+        "nome": 'Eurico',
+        "apelido": 'professor'
+    },
+    {
+        "id": '4',
+        "nome": 'Davi',
+        "apelido": 'davilte'
+    },
+    {
+        "id": '5',
+        "nome": 'Rafael',
+        "apelido": 'rafa'
+    },
+    {
+        "id": '6',
+        "nome": 'Eurico',
+        "apelido": 'professor'
+    },
+    {
+        "id": '7',
+        "nome": 'Davi',
+        "apelido": 'davilte'
+    },
+    {
+        "id": '8',
+        "nome": 'Rafael',
+        "apelido": 'rafa'
+    },
+    {
+        "id": '9',
+        "nome": 'Eurico',
+        "apelido": 'professor'
+    }
+    ]
+    return render(request, 'app/contatos.html', {"contacts": contactList})

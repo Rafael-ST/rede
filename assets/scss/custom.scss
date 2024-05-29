@@ -4,8 +4,25 @@ $theme-colors: (
 );
 
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 
 
-.testeabc {
-  background-color: purple;
+.btn-info {
+  background-color: #10949e;
+  border-color: #10949e;
+}
+
+.btn-warning {
+  background-color: #fda621;
+  border-color: #fda621;
+}
+
+.btn-info:hover {
+  background-color: #0c7077;
+  border-color: #0c7077;
+}
+
+.btn-warning:hover {
+  background-color: #c5811b;
+  border-color: #c5811b;
 }
