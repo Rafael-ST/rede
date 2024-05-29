@@ -1,0 +1,11 @@
+$theme-colors: (
+  "primary": #fda621,
+  "secondary": #ffcc00,
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+
+.testeabc {
+  background-color: purple;
+}

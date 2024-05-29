@@ -134,3 +134,6 @@ class AmigoListView(generics.ListAPIView):
             return Amigo.objects.filter(lider=lider)
         except LiderDeEquipe.DoesNotExist:
             return Amigo.objects.none()
+
+def contatos(request):
+    return render(request, 'app/contatos.html')

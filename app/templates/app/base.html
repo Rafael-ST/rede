@@ -1,19 +1,25 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título do Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'assets/js/css/custom.css' %}">
   </head>
   <body>
-
+    <main id="content-wrapper" class="wrapper">
       {% block content %}
 
       {% endblock %}
-
+    </main>
     {% block javascript %}
-      <script src="{% static 'assets/js/main.bundle.js' %}"></script>
+    {% if debug %}
+    <script src="http://localhost:9000/static/assets/js/main.bundle.js"></script>
+    {% else %}
+    <script src="{% static 'assets/js/main.bundle.js' %}"></script>
+    {% endif %}
     {% endblock %}
   </body>
 </html>
