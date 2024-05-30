@@ -19,6 +19,8 @@ urlpatterns = [
     path('amigos_all/', AmigoListViewAll.as_view(), name='amigos-all'),
     path('incluir_lider', views.incluir_lider, name='incluir_lider'),
     path('loginoperador', views.loginoperador, name='loginoperador'),
+    path('logout', views.logout, name='logout'),
+    path('amigos_lider/<int:pk>', views.amigos_lider, name='amigos_lider'),
 
     path('contatos', views.contatos, name='contatos'),
 ]

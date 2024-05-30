@@ -17,25 +17,44 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     if request.method == 'POST':
-        form = LiderDeEquipeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = User.objects.create_user(
-            username=form.cleaned_data['email'],
-            email=form.cleaned_data['email'],
-            password='Tt@123456')
-            lider_group = Group.objects.get(name='Lider')
-            lider_group.user_set.add(user)
-            messages.success(request, 'Usuário criado com sucesso, passe a senha para o novo usuário: Tt@123456')
+        email = request.POST['email']
+        senha = request.POST['senha']
+        if email == "" or senha == "":
+            return redirect('index')
+        if (User.objects.filter(username=email)).exists():
+            nome = User.objects.filter(username=email).values_list('username', flat=True).get()
+            user = auth.authenticate(request, username=nome, password=senha)
+            if user is not None:
+                auth.login(request, user)
+                return redirect('contatos')
+            else:
+                messages.warning(request, 'Usuário e/ou senha inválido(s)')
+                return redirect('index')
         else:
-            messages.Warning(request, 'Erro ao salvar, verifique os dados e tente novamente')
-                  
+            messages.warning(request, 'Usuário e/ou senha inválido(s)')
             return redirect('index')
     else:
-        form = LiderDeEquipeForm()
-    return render(request, 'app/index.html', {'form':form})
+        return render(request, 'app/index.html')
+    # if request.method == 'POST':
+    #     form = LiderDeEquipeForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         user = User.objects.create_user(
+    #         username=form.cleaned_data['email'],
+    #         email=form.cleaned_data['email'],
+    #         password='Tt@123456')
+    #         lider_group = Group.objects.get(name='Lider')
+    #         lider_group.user_set.add(user)
+    #         messages.success(request, 'Usuário criado com sucesso, passe a senha para o novo usuário: Tt@123456')
+    #     else:
+    #         messages.Warning(request, 'Erro ao salvar, verifique os dados e tente novamente')
+                  
+    #         return redirect('index')
+    # else:
+    #     form = LiderDeEquipeForm()
+    # return render(request, 'app/index.html', {'form':form})
 
-@login_required(login_url="/loginoperador")
+@login_required(login_url="index")
 def incluir_lider(request):
     if request.method == 'POST':
         form = LiderDeEquipeForm(request.POST)
@@ -55,6 +74,11 @@ def incluir_lider(request):
     else:
         form = LiderDeEquipeForm()
     return render(request, 'app/incluir_lider.html', {'form':form})
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('index')
 
 
 def loginoperador(request):
@@ -135,7 +159,15 @@ class AmigoListView(generics.ListAPIView):
         except LiderDeEquipe.DoesNotExist:
             return Amigo.objects.none()
 
+def amigos_lider(request, pk):
+    print(pk)
+    amigos = Amigo.objects.filter(lider=pk)
+    print(amigos)
+    return render(request, 'app/amigos_lider.html', {'amigos':amigos})
+
 def contatos(request):
+    lideres = LiderDeEquipe.objects.all()
+    print(lideres)
     contactList = [
     {
         "id": '1',
@@ -183,4 +215,4 @@ def contatos(request):
         "apelido": 'professor'
     }
     ]
-    return render(request, 'app/contatos.html', {"contacts": contactList})
+    return render(request, 'app/contatos.html', {"contacts": contactList, 'lideres': lideres})
