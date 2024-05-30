@@ -33,6 +33,7 @@
           </div>
         </div>
       </div>
+
       <br>
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -47,6 +48,17 @@
         </div>
       </div>
 
+      <br>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="d-flex align-items-center gap-2">
+            <a href="{% url 'add_lider' %}">
+            <button class="btn btn-info text-white">Adicionar Lider</button>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-6 offset-md-3">
           <ul class="list-group mt-4">
@@ -56,12 +68,14 @@
                   <a data-bs-toggle="modal" data-bs-target="#viewUserModal">
                     <div>
                       <h5 class="card-title mb-1 text-danger ">{{ lider.nome }}</h5>
-                      <p class="card-text mb-0">{{ lider.apelido }}</p>
+                      {% if lider.apelido %}
+                        <p class="card-text mb-0">{{ lider.apelido }}</p>
+                      {% endif %}
                     </div>
                   </a>
                   <div class="btn-group" role="group" aria-label="Ações">
                     <a href="amigos_lider/{{lider.pk}}">
-                    <button type="button" class="btn btn-info me-2 text-white fw-bold"><i class="bi bi-pencil"></i> Ver Amigos</button>
+                    <button type="button" class="btn btn-info me-2 text-white fw-bold">Ver Amigos</button>
                     </a>
                     <button type="button" class="btn btn-info me-2 text-white fw-bold"><i class="bi bi-pencil"></i> Editar</button>
                     <button type="button" class="btn btn-warning text-white fw-bold"><i class="bi bi-trash"></i> Excluir</button>

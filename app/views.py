@@ -175,6 +175,33 @@ def amigos(request):
 
 
 @login_required(login_url="index")
+def add_lider(request):
+    if request.method == 'POST':
+        form = LiderDeEquipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = User.objects.create_user(
+            username=form.cleaned_data['email'],
+            email=form.cleaned_data['email'],
+            password='Tt@123456')
+            lider_group = Group.objects.get(name='Lider')
+            lider_group.user_set.add(user)
+            messages.success(request, 'Usuário criado com sucesso, passe a senha para o novo usuário: Tt@123456')
+            form = LiderDeEquipeForm()
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    print(f"Erro no campo {field}: {error}")
+
+            messages.warning(request, 'Erro ao salvar, verifique os dados e tente novamente')
+                  
+            return redirect('add_lider')
+    else:
+        form = LiderDeEquipeForm()
+    return render(request, 'app/add_lider.html', {'form':form})
+
+
+@login_required(login_url="index")
 def contatos(request):
     lideres = LiderDeEquipe.objects.all()
     print(lideres)
