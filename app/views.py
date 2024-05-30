@@ -159,12 +159,22 @@ class AmigoListView(generics.ListAPIView):
         except LiderDeEquipe.DoesNotExist:
             return Amigo.objects.none()
 
+
+@login_required(login_url="index")
 def amigos_lider(request, pk):
     print(pk)
     amigos = Amigo.objects.filter(lider=pk)
     print(amigos)
     return render(request, 'app/amigos_lider.html', {'amigos':amigos})
 
+
+@login_required(login_url="index")
+def amigos(request):
+    amigos = Amigo.objects.all()
+    return render(request, 'app/amigos.html', {'amigos':amigos})
+
+
+@login_required(login_url="index")
 def contatos(request):
     lideres = LiderDeEquipe.objects.all()
     print(lideres)

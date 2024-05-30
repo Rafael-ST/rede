@@ -21,6 +21,6 @@ urlpatterns = [
     path('loginoperador', views.loginoperador, name='loginoperador'),
     path('logout', views.logout, name='logout'),
     path('amigos_lider/<int:pk>', views.amigos_lider, name='amigos_lider'),
-
+    path('amigos', views.amigos, name='amigos'),
     path('contatos', views.contatos, name='contatos'),
 ]
