@@ -33,6 +33,18 @@
           </div>
         </div>
       </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+        {% if messages %}
+          {% for message in messages %}
+            <div {% if message.tags %} style="color:red;" {% else %} class="alert alert-info" {% endif %}>
+                {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        </div>
+      </div>
 
       <br>
       <div class="row">
@@ -48,6 +60,7 @@
         </div>
       </div>
 
+      {% if not lider_grupo %}
       <br>
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -58,6 +71,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
 
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -78,7 +92,9 @@
                     <button type="button" class="btn btn-info me-2 text-white fw-bold">Ver Amigos</button>
                     </a>
                     <button type="button" class="btn btn-info me-2 text-white fw-bold"><i class="bi bi-pencil"></i> Editar</button>
+                    <a href="excluir_lider/{{lider.pk}}">
                     <button type="button" class="btn btn-warning text-white fw-bold"><i class="bi bi-trash"></i> Excluir</button>
+                    </a>
                   </div>
                 </div>
               </div>

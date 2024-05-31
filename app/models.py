@@ -57,7 +57,7 @@ class LiderDeEquipe(BaseModel):
 
 
 class Amigo(BaseModel):
-    lider = models.ForeignKey('LiderDeEquipe', verbose_name='Lider', on_delete=models.PROTECT)
+    lider = models.ForeignKey('LiderDeEquipe', verbose_name='Lider', on_delete=models.PROTECT, null=True)
     nome = models.CharField(verbose_name='Nome Completo', max_length=250)
     apelido = models.CharField(verbose_name='Apelido', max_length=100, null=True, blank=True)
     data_nascimento = models.DateField(verbose_name='Data de nascimento')
@@ -76,3 +76,6 @@ class Amigo(BaseModel):
     bairro = models.ForeignKey('Bairro', verbose_name="Bairro", on_delete=models.PROTECT, null=True)
     complemento = models.CharField(verbose_name='Complemento', max_length=150, null=True, blank=True)
     observacao = models.TextField(verbose_name='Observação', max_length=250, null=True, blank=True)
+    zona = models.CharField(verbose_name="Zona", max_length=20, null=True, blank=True)
+    secao = models.CharField(verbose_name='Seção', max_length=20, null=True, blank=True)
+    local = models.CharField(verbose_name='Local de Votação', max_length=50, null=True, blank=True)

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,8 +11,9 @@ from .models import Bairro, LiderDeEquipe, Amigo
 from django.contrib.auth.models import User, Group
 from django.contrib import messages, auth
 
-from .forms import LiderDeEquipeForm
+from .forms import LiderDeEquipeForm, AmigoForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 def index(request):
@@ -24,6 +25,7 @@ def index(request):
         if (User.objects.filter(username=email)).exists():
             nome = User.objects.filter(username=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
+            print(user)
             if user is not None:
                 auth.login(request, user)
                 return redirect('contatos')
@@ -35,24 +37,7 @@ def index(request):
             return redirect('index')
     else:
         return render(request, 'app/index.html')
-    # if request.method == 'POST':
-    #     form = LiderDeEquipeForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         user = User.objects.create_user(
-    #         username=form.cleaned_data['email'],
-    #         email=form.cleaned_data['email'],
-    #         password='Tt@123456')
-    #         lider_group = Group.objects.get(name='Lider')
-    #         lider_group.user_set.add(user)
-    #         messages.success(request, 'Usuário criado com sucesso, passe a senha para o novo usuário: Tt@123456')
-    #     else:
-    #         messages.Warning(request, 'Erro ao salvar, verifique os dados e tente novamente')
-                  
-    #         return redirect('index')
-    # else:
-    #     form = LiderDeEquipeForm()
-    # return render(request, 'app/index.html', {'form':form})
+
 
 @login_required(login_url="index")
 def incluir_lider(request):
@@ -171,11 +156,23 @@ def amigos_lider(request, pk):
 @login_required(login_url="index")
 def amigos(request):
     amigos = Amigo.objects.all()
-    return render(request, 'app/amigos.html', {'amigos':amigos})
+    search = request.POST.get('search')
+    if search:
+        amigos = amigos.filter(nome__icontains=search)
+    lider_grupo = False
+    if request.user.is_authenticated and request.user.groups.filter(name='Lider').exists():
+        lider_grupo = True
+        lider = LiderDeEquipe.objects.get(email=request.user.username)
+        amigos = Amigo.objects.filter(lider=lider)
+    return render(request, 'app/amigos.html', {'amigos':amigos, 'lider_grupo': lider_grupo})
 
 
 @login_required(login_url="index")
 def add_lider(request):
+    lider_grupo = False
+    if request.user.is_authenticated and request.user.groups.filter(name='Lider').exists():
+        lider_grupo = True
+        return redirect('amigos')
     if request.method == 'POST':
         form = LiderDeEquipeForm(request.POST)
         if form.is_valid():
@@ -202,54 +199,52 @@ def add_lider(request):
 
 
 @login_required(login_url="index")
+def add_amigo(request):
+    if request.method == 'POST':
+        form = AmigoForm(request.POST)
+        if form.is_valid():
+            if request.user.is_authenticated and request.user.groups.filter(name='Lider').exists():
+                lider = LiderDeEquipe.objects.get(email=request.user.username)
+                instance = form.save(commit=False)
+                instance.lider = lider
+                instance.save()
+            form.save()
+            messages.success(request, 'Amigo salvo com sucesso')
+            form = LiderDeEquipeForm()
+        else:
+            messages.success(request, 'Verifique o fomulário e tente novamente')
+    else:
+        form = AmigoForm()
+
+    return render(request, "app/add_amigo.html", {'form': form})
+
+
+@login_required(login_url="index")
 def contatos(request):
+    lider_grupo = False
+    if request.user.is_authenticated and request.user.groups.filter(name='Lider').exists():
+        lider_grupo = True
+        return redirect('amigos')
     lideres = LiderDeEquipe.objects.all()
-    print(lideres)
-    contactList = [
-    {
-        "id": '1',
-        "nome": 'Davi',
-        "apelido": 'davilte'
-    },
-    {
-        "id": '2',
-        "nome": 'Rafael',
-        "apelido": 'rafa'
-    },
-    {
-        "id": '3',
-        "nome": 'Eurico',
-        "apelido": 'professor'
-    },
-    {
-        "id": '4',
-        "nome": 'Davi',
-        "apelido": 'davilte'
-    },
-    {
-        "id": '5',
-        "nome": 'Rafael',
-        "apelido": 'rafa'
-    },
-    {
-        "id": '6',
-        "nome": 'Eurico',
-        "apelido": 'professor'
-    },
-    {
-        "id": '7',
-        "nome": 'Davi',
-        "apelido": 'davilte'
-    },
-    {
-        "id": '8',
-        "nome": 'Rafael',
-        "apelido": 'rafa'
-    },
-    {
-        "id": '9',
-        "nome": 'Eurico',
-        "apelido": 'professor'
-    }
-    ]
-    return render(request, 'app/contatos.html', {"contacts": contactList, 'lideres': lideres})
+    return render(request, 'app/contatos.html', {'lideres': lideres, 'lider_grupo': lider_grupo})
+
+
+@login_required
+def excluir_amigo(request, pk):
+    instance = get_object_or_404(Amigo, id=pk)
+    instance.delete()
+    messages.success(request, "Amigo exluido")
+    return redirect('amigos')
+
+
+@login_required
+def excluir_lider(request, pk):
+    instance = get_object_or_404(LiderDeEquipe, id=pk)
+    try:
+        user = User.objects.get(username=instance.email)
+        user.delete()
+        messages.success(request, "Lider de equipe exluido, ele não poderar mais acessar essa rede")
+    except:
+        messages.success(request, "Esse Lider de equipe não existe ou já pode ter sido excluído")
+    return redirect('contatos')
+

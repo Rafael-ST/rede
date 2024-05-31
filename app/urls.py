@@ -24,4 +24,7 @@ urlpatterns = [
     path('amigos', views.amigos, name='amigos'),
     path('contatos', views.contatos, name='contatos'),
     path('add_lider', views.add_lider, name='add_lider'),
+    path('add_amigo', views.add_amigo, name='add_amigo'),
+    path('excluir_amigo/<int:pk>', views.excluir_amigo, name='excluir_amigo'),
+    path('excluir_lider/<int:pk>', views.excluir_lider, name='excluir_lider'),
 ]

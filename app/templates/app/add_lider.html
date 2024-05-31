@@ -23,6 +23,15 @@
                         </ul>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <a href="{% url 'contatos' %}">
+                      <button class="btn btn-primary text-white">Lider de Equipe</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
             <form action="" method="POST" class="w-75 mx-auto">
                 {% csrf_token %}
                 {% if messages %}
