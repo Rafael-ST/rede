@@ -14,6 +14,8 @@ from django.contrib import messages, auth
 from .forms import LiderDeEquipeForm, AmigoForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+import pandas as pd
+from django.http import HttpResponse
 
 
 def index(request):
@@ -315,3 +317,52 @@ def atualizar_amigo(request, pk):
         form = AmigoForm(instance=amigo)
     
     return render(request, "app/atualizar_amigo.html", {'form': form})
+
+
+@login_required(login_url="index")
+def exportar_lideres(request):
+    print('Exportar')
+    lideres = LiderDeEquipe.objects.all()
+    dados = []
+    for lider in lideres:
+        dados.append({
+            'Nome': lider.nome,
+            'Apelido': lider.apelido,
+            'Data de nascimento': lider.data_nascimento,
+            'CPF': lider.cpf,
+            'Nome da Mãe': lider.nome_mae,
+            'Nome do Pai': lider.nome_pai,
+            'DDD': lider.ddd,
+            'Telefone': lider.telefone,
+            'É Whatsapp?': lider.whatsapp,
+            'Email': lider.email,
+            'Instagram': lider.instagram,
+            'CEP': lider.cep,
+            'Logradouro': lider.logradouro,
+            'Número': lider.numero,
+            'Bairro': lider.bairro.nome if lider.bairro else '',
+            'Complemento': lider.complemento,
+            'Já foi candidato?': lider.candidato,
+            'Se sim, qual cargo?': lider.cargo,
+            'Ano de candidatura': lider.ano,
+            'Quantidade de votos': lider.votos,
+            'Principais bairros/comunidade de votos': lider.comunidades,
+            'Já fez reunião com seus amigos?': lider.reuniao,
+            'Data da próxima reunião': lider.proxima_reuniao,
+            'Horário da próxima reunião': lider.horario_reuniao,
+            'Local da próxima reunião': lider.local_reuniao,
+            'Observação': lider.observacao
+        })
+
+    # Criar um DataFrame com os dados
+    df = pd.DataFrame(dados)
+
+    # Criar um HttpResponse com o tipo de conteúdo apropriado (arquivo Excel)
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="lideres.xlsx"'
+
+    # Escrever o DataFrame no response usando o ExcelWriter e openpyxl
+    with pd.ExcelWriter(response, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Lideres')
+
+    return response
