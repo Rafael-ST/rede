@@ -31,44 +31,137 @@
                     </a>
                   </div>
                 </div>
+            </div>
+            
+            <div class="w-75 mx-auto">
+                <h1 class="mb-4">Detalhes da Pessoa</h1>
+                <fieldset class="border p-4">
+                  <legend class="w-auto">Informações Pessoais</legend>
+                  <div class="form-card">
+                    <p>Campos obrigatórios <span class="text-danger">*</span></p>
+                    <div class="row mb-4">
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Nome:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.nome }}</p>
+                      </div>
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Apelido:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.apelido }}</p>
+                      </div>
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Email:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.email }}</p>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Data de Nascimento:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.data_nascimento }}</p>
+                      </div>
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Nome da Mãe:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.nome_mae }}</p>
+                      </div>
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Nome do Pai:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.nome_pai }}</p>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">CPF:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.cpf }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">DDD:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.ddd }}</p>
+                      </div>
+                      <div class="col-lg-4 col-md-6 mb-3">
+                        <label class="form-label">Telefone:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.telefone }}</p>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label">É Whatsapp?</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.whatsapp|yesno:"Sim,Não" }}</p>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">CEP:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.cep }}</p>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label">Logradouro:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.logradouro }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Número:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.numero }}</p>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label">Complemento:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.complemento }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Bairro:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.bairro }}</p>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label">Instagram:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.instagram }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Candidato:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.candidato|yesno:"Sim,Não" }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Cargo:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.cargo }}</p>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label">Ano:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.ano }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Votos:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.votos }}</p>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Reunião:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.reuniao|yesno:"Sim,Não" }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Próxima Reunião:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.proxima_reuniao }}</p>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label">Horário da Reunião:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.horario_reuniao }}</p>
+                      </div>
+                      <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="form-label">Local da Reunião:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.local_reuniao }}</p>
+                      </div>
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-lg-6 col-md-12 mb-3">
+                        <label class="form-label">Comunidades:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.comunidades }}</p>
+                      </div>
+                      <div class="col-lg-6 col-md-12 mb-3">
+                        <label class="form-label">Observações:</label>
+                        <p class="bg-light p-2 rounded border">{{ lider.observacao }}</p>
+                      </div>
+                    </div>
+                    <a href="{% url 'contatos' %}" class="btn btn-primary text-white">Voltar</a>
+                  </div>
+                </fieldset>
               </div>
-            <form action="" method="POST" class="w-75 mx-auto">
-                {% csrf_token %}
-                {% if messages %}
-                {% for message in messages %}
-                    <div {% if message.tags %} style="color:red;" {% else %} class="alert alert-info" {% endif %}>
-                    {{ message }}
-                    </div>
-                {% endfor %}
-                {% endif %}
-        
-            <!-- Display form errors -->
-            <div>
-            <p class="text-danger">{{ form.errors }}</p>
-            <p class="text-danger">{{ form.non_field_errors }}</p>
-            <fieldset>
-                <div class="form-card">
-                    <!-- formulario pessal core-->
-                    <div class="mb-4">
-        
-                        <p class>Preencha os campos obrigatórios <span class="text-danger">*</span></p>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12">
-                                <input type="text" class="textinput textInput form-control" readonly value="{{ lider.nome }}">
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                            </div>
-                        </div>
-                       
-                        <button type="submit" class="btn btn-primary text-white">Enviar</button>
-                    </div>
-                    
-                </div>
-                
-            </fieldset>
-            </form>
+            
         </div>
         
     </section>
