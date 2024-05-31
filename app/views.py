@@ -279,3 +279,18 @@ def lider_view(request, pk):
     lider = LiderDeEquipe.objects.get(id=pk)
     return render(request, 'app/lider_view.html', {'lider':lider})
 
+
+@login_required
+def atualizar_lider(request, pk):
+    lider = get_object_or_404(LiderDeEquipe, id=pk)
+    
+    if request.method == "POST":
+        form = LiderDeEquipeForm(request.POST, instance=lider)
+        if form.is_valid():
+            form.save()
+            return redirect('lider_view', pk=lider.id)
+    else:
+        form = LiderDeEquipeForm(instance=lider)
+    
+    return render(request, 'app/atualizar_lider.html', {'form': form})
+
