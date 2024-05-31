@@ -155,8 +155,30 @@ def amigos_lider(request, pk):
 
 @login_required(login_url="index")
 def amigos(request):
+    meses = [
+        (1, 'Janeiro'),
+        (2, 'Fevereiro'),
+        (3, 'Março'),
+        (4, 'Abril'),
+        (5, 'Maio'),
+        (6, 'Junho'),
+        (7, 'Julho'),
+        (8, 'Agosto'),
+        (9, 'Setembro'),
+        (10, 'Outubro'),
+        (11, 'Novembro'),
+        (12, 'Dezembro'),
+    ]
+    bairros = Bairro.objects.all()
     amigos = Amigo.objects.all()
     search = request.POST.get('search')
+    bairro = request.POST.get('bairro')
+    mes = request.POST.get('mes')
+    if mes:
+        print(mes)
+        amigos = amigos.filter(data_nascimento__month=mes)
+    if bairro:
+        amigos = amigos.filter(bairro__id__icontains=bairro)
     if search:
         amigos = amigos.filter(nome__icontains=search)
     lider_grupo = False
@@ -164,7 +186,7 @@ def amigos(request):
         lider_grupo = True
         lider = LiderDeEquipe.objects.get(email=request.user.username)
         amigos = Amigo.objects.filter(lider=lider)
-    return render(request, 'app/amigos.html', {'amigos':amigos, 'lider_grupo': lider_grupo})
+    return render(request, 'app/amigos.html', {'amigos':amigos, 'lider_grupo': lider_grupo, 'bairros':bairros, 'meses':meses})
 
 
 @login_required(login_url="index")
@@ -221,11 +243,14 @@ def add_amigo(request):
 
 @login_required(login_url="index")
 def contatos(request):
+    lideres = LiderDeEquipe.objects.all()
+    search = request.POST.get('search')
+    if search:
+        lideres = lideres.filter(nome__icontains=search)
     lider_grupo = False
     if request.user.is_authenticated and request.user.groups.filter(name='Lider').exists():
         lider_grupo = True
         return redirect('amigos')
-    lideres = LiderDeEquipe.objects.all()
     return render(request, 'app/contatos.html', {'lideres': lideres, 'lider_grupo': lider_grupo})
 
 
@@ -247,4 +272,10 @@ def excluir_lider(request, pk):
     except:
         messages.success(request, "Esse Lider de equipe não existe ou já pode ter sido excluído")
     return redirect('contatos')
+
+
+@login_required
+def lider_view(request, pk):
+    lider = LiderDeEquipe.objects.get(id=pk)
+    return render(request, 'app/lider_view.html', {'lider':lider})
 

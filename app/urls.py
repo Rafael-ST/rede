@@ -27,4 +27,5 @@ urlpatterns = [
     path('add_amigo', views.add_amigo, name='add_amigo'),
     path('excluir_amigo/<int:pk>', views.excluir_amigo, name='excluir_amigo'),
     path('excluir_lider/<int:pk>', views.excluir_lider, name='excluir_lider'),
+    path('lider_view/<int:pk>', views.lider_view, name='lider_view'),
 ]
