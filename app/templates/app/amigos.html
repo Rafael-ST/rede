@@ -138,6 +138,18 @@
           </ul>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="d-flex align-items-center gap-2">
+            {% if amigos_ids %}
+              <a href="{% url 'exportar_amigos' amigos_ids %}">
+              <button class="btn btn-info text-white">Exportar Amigos</button>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <br>
       <br>
     </div>
   </section>  

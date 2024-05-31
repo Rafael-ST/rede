@@ -149,9 +149,7 @@ class AmigoListView(generics.ListAPIView):
 
 @login_required(login_url="index")
 def amigos_lider(request, pk):
-    print(pk)
     amigos = Amigo.objects.filter(lider=pk)
-    print(amigos)
     return render(request, 'app/amigos_lider.html', {'amigos':amigos})
 
 
@@ -188,7 +186,8 @@ def amigos(request):
         lider_grupo = True
         lider = LiderDeEquipe.objects.get(email=request.user.username)
         amigos = Amigo.objects.filter(lider=lider)
-    return render(request, 'app/amigos.html', {'amigos':amigos, 'lider_grupo': lider_grupo, 'bairros':bairros, 'meses':meses})
+    amigos_ids = ','.join(str(amigo.id) for amigo in amigos)
+    return render(request, 'app/amigos.html', {'amigos':amigos, 'lider_grupo': lider_grupo, 'bairros':bairros, 'meses':meses, 'amigos_ids':amigos_ids})
 
 
 @login_required(login_url="index")
@@ -364,5 +363,50 @@ def exportar_lideres(request):
     # Escrever o DataFrame no response usando o ExcelWriter e openpyxl
     with pd.ExcelWriter(response, engine='openpyxl') as writer:
         df.to_excel(writer, index=False, sheet_name='Lideres')
+
+    return response
+
+
+@login_required(login_url="index")
+def exportar_amigos(request, ids):
+    ids_list = ids.split(',')
+    print('Exportar')
+    amigos = Amigo.objects.filter(id__in=ids_list)
+    dados = []
+    for amigo in amigos:
+        dados.append({
+            'Lider': amigo.lider,
+            'Nome': amigo.nome,
+            'Apelido': amigo.apelido,
+            'Data de nascimento': amigo.data_nascimento,
+            'CPF': amigo.cpf,
+            'Nome da Mãe': amigo.nome_mae,
+            'Nome do Pai': amigo.nome_pai,
+            'DDD': amigo.ddd,
+            'Telefone': amigo.telefone,
+            'É Whatsapp?': amigo.whatsapp,
+            'Email': amigo.email,
+            'Instagram': amigo.instagram,
+            'CEP': amigo.cep,
+            'Logradouro': amigo.logradouro,
+            'Número': amigo.numero,
+            'Bairro': amigo.bairro.nome if amigo.bairro else '',
+            'Complemento': amigo.complemento,
+            'Zona': amigo.zona,
+            'Seção': amigo.secao,
+            'Local de votação': amigo.local,
+            'Observação': amigo.observacao,
+        })
+
+    # Criar um DataFrame com os dados
+    df = pd.DataFrame(dados)
+
+    # Criar um HttpResponse com o tipo de conteúdo apropriado (arquivo Excel)
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="amigos.xlsx"'
+
+    # Escrever o DataFrame no response usando o ExcelWriter e openpyxl
+    with pd.ExcelWriter(response, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Amigo')
 
     return response

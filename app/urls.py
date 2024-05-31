@@ -32,4 +32,5 @@ urlpatterns = [
     path('amigo_view/<int:pk>', views.amigo_view, name='amigo_view'),
     path('atualizar_amigo/<int:pk>', views.atualizar_amigo, name='atualizar_amigo'),
     path('exportar_lideres', views.exportar_lideres, name='exportar_lideres'),
+    path('exportar_amigos/<str:ids>', views.exportar_amigos, name='exportar_amigos'),
 ]
