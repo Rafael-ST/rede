@@ -29,4 +29,6 @@ urlpatterns = [
     path('excluir_lider/<int:pk>', views.excluir_lider, name='excluir_lider'),
     path('lider_view/<int:pk>', views.lider_view, name='lider_view'),
     path('atualizar_lider/<int:pk>', views.atualizar_lider, name='atualizar_lider'),
+    path('amigo_view/<int:pk>', views.amigo_view, name='amigo_view'),
+    path('atualizar_amigo/<int:pk>', views.atualizar_amigo, name='atualizar_amigo'),
 ]

@@ -254,7 +254,7 @@ def contatos(request):
     return render(request, 'app/contatos.html', {'lideres': lideres, 'lider_grupo': lider_grupo})
 
 
-@login_required
+@login_required(login_url="index")
 def excluir_amigo(request, pk):
     instance = get_object_or_404(Amigo, id=pk)
     instance.delete()
@@ -262,7 +262,7 @@ def excluir_amigo(request, pk):
     return redirect('amigos')
 
 
-@login_required
+@login_required(login_url="index")
 def excluir_lider(request, pk):
     instance = get_object_or_404(LiderDeEquipe, id=pk)
     try:
@@ -274,13 +274,13 @@ def excluir_lider(request, pk):
     return redirect('contatos')
 
 
-@login_required
+@login_required(login_url="index")
 def lider_view(request, pk):
     lider = LiderDeEquipe.objects.get(id=pk)
     return render(request, 'app/lider_view.html', {'lider':lider})
 
 
-@login_required
+@login_required(login_url="index")
 def atualizar_lider(request, pk):
     lider = get_object_or_404(LiderDeEquipe, id=pk)
     
@@ -294,3 +294,24 @@ def atualizar_lider(request, pk):
     
     return render(request, 'app/atualizar_lider.html', {'form': form})
 
+
+@login_required(login_url="index")
+def amigo_view(request, pk):
+    amigo = Amigo.objects.get(id=pk)
+    return render(request, 'app/amigo_view.html', {'amigo':amigo})
+
+
+@login_required(login_url="index")
+def atualizar_amigo(request, pk):
+    amigo = get_object_or_404(Amigo, id=pk)
+
+    if request.method == "POST":
+        form = AmigoForm(request.POST, instance=amigo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Amigo atualizado com sucesso")
+            return redirect('amigo_view', pk=amigo.id)
+    else:
+        form = AmigoForm(instance=amigo)
+    
+    return render(request, "app/atualizar_amigo.html", {'form': form})
