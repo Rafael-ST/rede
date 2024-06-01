@@ -8,3 +8,7 @@ psycopg2-binary==2.9.9
 PyJWT==2.8.0
 sqlparse==0.5.0
 tzdata==2024.1
+django-crispy-forms==2.1
+crispy-bootstrap5==2024.2
+pandas==2.2.2
+openpyxl==3.1.3
