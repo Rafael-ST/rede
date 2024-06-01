@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-dct3p)-5!aneq^e4l9zglc@y3$jj=c95r-xx63*1hfq_9h3fwe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['35.198.16.183']
 
 
 # Application definition
@@ -104,10 +104,21 @@ SIMPLE_JWT = {
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'admin',
+        'PASSWORD': '123987',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
