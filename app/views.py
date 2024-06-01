@@ -27,7 +27,6 @@ def index(request):
         if (User.objects.filter(username=email)).exists():
             nome = User.objects.filter(username=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
-            print(user)
             if user is not None:
                 auth.login(request, user)
                 return redirect('contatos')
@@ -80,7 +79,6 @@ def loginoperador(request):
             auth.login(request, user)
             return redirect('incluir_lider')
         else:
-            print('Teste')
             messages.warning(request, 'Usuário e/ou senha inválido(s)')
             return redirect('loginoperador')
     else:
@@ -175,7 +173,6 @@ def amigos(request):
     bairro = request.POST.get('bairro')
     mes = request.POST.get('mes')
     if mes:
-        print(mes)
         amigos = amigos.filter(data_nascimento__month=mes)
     if bairro:
         amigos = amigos.filter(bairro__id__icontains=bairro)
@@ -320,7 +317,6 @@ def atualizar_amigo(request, pk):
 
 @login_required(login_url="index")
 def exportar_lideres(request):
-    print('Exportar')
     lideres = LiderDeEquipe.objects.all()
     dados = []
     for lider in lideres:
@@ -370,7 +366,6 @@ def exportar_lideres(request):
 @login_required(login_url="index")
 def exportar_amigos(request, ids):
     ids_list = ids.split(',')
-    print('Exportar')
     amigos = Amigo.objects.filter(id__in=ids_list)
     dados = []
     for amigo in amigos:
