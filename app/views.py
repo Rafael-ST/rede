@@ -183,6 +183,12 @@ def amigos(request):
         lider_grupo = True
         lider = LiderDeEquipe.objects.get(email=request.user.username)
         amigos = Amigo.objects.filter(lider=lider)
+        if mes:
+            amigos = amigos.filter(data_nascimento__month=mes)
+        if bairro:
+            amigos = amigos.filter(bairro__id__icontains=bairro)
+        if search:
+            amigos = amigos.filter(nome__icontains=search)
     amigos_ids = ','.join(str(amigo.id) for amigo in amigos)
     return render(request, 'app/amigos.html', {'amigos':amigos, 'lider_grupo': lider_grupo, 'bairros':bairros, 'meses':meses, 'amigos_ids':amigos_ids})
 
@@ -387,9 +393,9 @@ def exportar_amigos(request, ids):
             'Número': amigo.numero,
             'Bairro': amigo.bairro.nome if amigo.bairro else '',
             'Complemento': amigo.complemento,
-            'Zona': amigo.zona,
-            'Seção': amigo.secao,
-            'Local de votação': amigo.local,
+            'Zona': amigo.zonanova,
+            'Seção': amigo.secaonova,
+            'Local de votação': amigo.localnova,
             'Observação': amigo.observacao,
         })
 

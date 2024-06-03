@@ -119,11 +119,11 @@
                   <a href="amigo_view/{{amigo.pk}}">
                     <div>
                       <h5 class="card-title mb-1">{{ amigo.nome }}</h5>
-                      {% if amigo.apelido %}
-                        <p class="card-text mb-0">{{ amigo.apelido }}</p>
+                      {% if amigo.lider %}
+                        <p class="card-text mb-0">Lider: {{ amigo.lider }}</p>
                       {% endif %}
                     </div>
-                    </a>
+                  </a>
                   <div class="btn-group" role="group" aria-label="Ações">
                     <a href="atualizar_amigo/{{amigo.pk}}">
                     <button type="button" class="btn btn-info me-2 text-white fw-bold"><i class="bi bi-pencil"></i> Editar</button>

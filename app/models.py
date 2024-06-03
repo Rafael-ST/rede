@@ -76,6 +76,12 @@ class Amigo(BaseModel):
     bairro = models.ForeignKey('Bairro', verbose_name="Bairro", on_delete=models.PROTECT, null=True)
     complemento = models.CharField(verbose_name='Complemento', max_length=150, null=True, blank=True)
     observacao = models.TextField(verbose_name='Observação', max_length=250, null=True, blank=True)
-    zona = models.CharField(verbose_name="Zona", max_length=20, null=True, blank=True)
+    zonanova = models.CharField(verbose_name="Zona", max_length=20, null=True, blank=True)
+    secaonova = models.CharField(verbose_name='Seção', max_length=20, null=True, blank=True)
+    localnova = models.CharField(verbose_name='Local de Votação', max_length=50, null=True, blank=True)
+    zona1 = models.CharField(verbose_name="Zona", max_length=20, null=True, blank=True)
     secao = models.CharField(verbose_name='Seção', max_length=20, null=True, blank=True)
     local = models.CharField(verbose_name='Local de Votação', max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.nome
