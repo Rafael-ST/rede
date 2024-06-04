@@ -23,8 +23,6 @@
             </div>
         </div>
 
-
-
         <div class="row mt-4">
             <div class="col-md-6 offset-md-3">
                 {% if messages %}
@@ -38,85 +36,89 @@
         </div>
 
         <div class="row">
-        
-        <div class="col-6 mt-4">
-            <div class="col-md-6 offset-md-3">
-                <div class="d-flex align-items-center gap-2">
-                    {% if not lider_grupo %}
-                    <a href="{% url 'contatos' %}" class="text-decoration-none">
-                        <button class="btn btn-primary text-white">Lideres</button>
-                    </a>
-                    {% endif %}
-                    <a href="{% url 'amigos' %}" class="text-decoration-none">
-                        <button class="btn btn-primary text-white">Amigos</button>
-                    </a>
+            <div class="col-6 mt-4">
+                <div class="col-md-6 offset-md-3">
+                    <div class="d-flex align-items-center gap-2">
+                        {% if not lider_grupo %}
+                        <a href="{% url 'contatos' %}" class="text-decoration-none">
+                            <button class="btn btn-primary text-white">Lideres</button>
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'amigos' %}" class="text-decoration-none">
+                            <button class="btn btn-primary text-white">Amigos</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-4">
+                <div class="col-md-6 offset-md-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="{% url 'add_amigo' %}" class="text-decoration-none">
+                            <button class="btn btn-info text-white">
+                              Adicionar Amigo
+                              <i class="bi bi-person-plus-fill"></i>
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-6 mt-4">
-            <div class="col-md-6 offset-md-3">
-                <div class="d-flex align-items-center gap-2">
-                    <a href="{% url 'add_amigo' %}" class="text-decoration-none">
-                        <button class="btn btn-info text-white">
-                          Adicionar Amigo
-                          <i class="bi bi-person-plus-fill"></i>
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-      </div>
 
         <div class="row mt-4">
-          <div class="col-md-6 offset-md-3">
-              <button class="btn btn-primary text-white w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
-                  Filtros
-                  <i class="bi bi-filter"></i>
-              </button>
-              <div class="collapse" id="filterCollapse">
-                  <div class="card">
-                      <div class="card-body">
-                          <form action="" method="POST" class="form-filter mb-3">
-                              {% csrf_token %}
-                              <div class="input-group">
-                                  <input type="text" placeholder="Pesquisar" class="form-control" name="search" required>
-                                  <button type="submit" class="btn btn-primary text-white fw-bold">Pesquisar</button>
-                              </div>
-                          </form>
+            <div class="col-md-6 offset-md-3">
+              <div class="d-flex">
 
-                          <form action="" method="POST" class="form-filter mb-3">
-                              {% csrf_token %}
-                              <div class="input-group">
-                                  <label for="bairro" class="input-group-text">Bairro:</label>
-                                  <select name="bairro" id="bairro" class="form-select">
-                                      {% for bairro in bairros %}
-                                      <option value="{{ bairro.id }}">{{ bairro.nome }}</option>
-                                      {% endfor %}
-                                  </select>
-                                  <button type="submit" class="btn btn-primary text-white fw-bold">Pesquisar</button>
-                              </div>
-                          </form>
+                <button class="btn btn-primary text-white w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                    Filtros
+                    <i class="bi bi-filter"></i>
+                </button>
+                <a href="{% url 'amigos' %}" class="btn btn-warning text-white col-1 px-0 mx-1">
+                  <i class="bi bi-x-circle"></i>
+                </a>
 
-                          <form method="POST" action="" class="form-filter">
-                              {% csrf_token %}
-                              <div class="input-group">
-                                  <label for="mes" class="input-group-text">Aniversário:</label>
-                                  <select name="mes" id="mes" class="form-select">
-                                      <option value="">--Selecione um Mês--</option>
-                                      {% for numero, nome in meses %}
-                                      <option value="{{ numero }}" {% if numero|stringformat:"i" == mes_selecionado %}selected{% endif %}>{{ nome }}</option>
-                                      {% endfor %}
-                                  </select>
-                                  <button type="submit" class="btn btn-primary text-white fw-bold">Pesquisar</button>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
               </div>
-          </div>
-      </div>
+                <div class="collapse" id="filterCollapse">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" method="POST" class="form-filter mb-3">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input type="text" placeholder="Pesquisar" class="form-control" name="search" required>
+                                    <button type="submit" class="btn btn-primary text-white fw-bold">Pesquisar</button>
+                                </div>
+                            </form>
+
+                            <form action="" method="POST" class="form-filter mb-3">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <label for="bairro" class="input-group-text">Bairro:</label>
+                                    <select name="bairro" id="bairro" class="form-select">
+                                        {% for bairro in bairros %}
+                                        <option value="{{ bairro.id }}">{{ bairro.nome }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="btn btn-primary text-white fw-bold">Pesquisar</button>
+                                </div>
+                            </form>
+
+                            <form method="POST" action="" class="form-filter">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <label for="mes" class="input-group-text">Aniversário:</label>
+                                    <select name="mes" id="mes" class="form-select">
+                                        <option value="">--Selecione um Mês--</option>
+                                        {% for numero, nome in meses %}
+                                        <option value="{{ numero }}" {% if numero|stringformat:"i" == mes_selecionado %}selected{% endif %}>{{ nome }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="btn btn-primary text-white fw-bold">Pesquisar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-6 offset-md-3">
