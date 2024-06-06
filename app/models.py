@@ -24,11 +24,11 @@ class Bairro(BaseModel):
 
 class LiderDeEquipe(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    nome = models.CharField(verbose_name='Nome', max_length=250)
+    nome = models.CharField(verbose_name='Nome Completo', max_length=250)
     apelido = models.CharField(verbose_name='Apelido', max_length=100, null=True, blank=True)
     data_nascimento = models.DateField(verbose_name='Data de nascimento')
     cpf = models.CharField(max_length=30, verbose_name='CPF', unique=True)
-    nome_mae = models.CharField(max_length=150, verbose_name='Nome da Mãe', null=True, blank=True)
+    nome_mae = models.CharField(max_length=150, verbose_name='Nome da Mãe', default='')
     nome_pai = models.CharField(max_length=150, verbose_name='Nome do Pai', null=True, blank=True)
     ddd = models.PositiveIntegerField(validators=[MinValueValidator(10), MaxValueValidator(99)],
                                       verbose_name='DDD')
@@ -46,10 +46,10 @@ class LiderDeEquipe(BaseModel):
     ano = models.CharField(verbose_name='Ano de candidatura', max_length=10, null=True, blank=True)
     votos = models.IntegerField(verbose_name='Quantidade de votos', null=True, blank=True)
     comunidades = models.TextField(verbose_name='Principais bairros/comunidade de votos', max_length=1000, null=True)
-    reuniao = models.CharField(verbose_name='Já fez reunião com seus amigos?', max_length=10, choices=SIM_NAO, null=True)
-    proxima_reuniao = models.CharField(verbose_name='Data da próxima reunião', max_length=20, null=True)
-    horario_reuniao = models.CharField(verbose_name='Horário da próxima reunião', max_length=20, null=True)
-    local_reuniao = models.CharField(verbose_name='Local da próxima reunião', max_length=100, null=True)
+    reuniao = models.CharField(verbose_name='Já fez reunião com seus amigos?', max_length=10, choices=SIM_NAO, null=True, blank=True)
+    proxima_reuniao = models.CharField(verbose_name='Data da próxima reunião', max_length=20, null=True, blank=True)
+    horario_reuniao = models.CharField(verbose_name='Horário da próxima reunião', max_length=20, null=True, blank=True)
+    local_reuniao = models.CharField(verbose_name='Local da próxima reunião', max_length=100, null=True, blank=True)
     observacao = models.TextField(verbose_name='Observação', max_length=1000, null=True, blank=True)
 
     def __str__(self):
