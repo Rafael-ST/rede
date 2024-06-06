@@ -236,7 +236,7 @@ def add_amigo(request):
                 instance.save()
             form.save()
             messages.success(request, 'Amigo salvo com sucesso')
-            form = LiderDeEquipeForm()
+            form = AmigoForm()
         else:
             messages.success(request, 'Verifique o fomulário e tente novamente')
     else:
