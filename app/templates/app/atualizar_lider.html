@@ -23,11 +23,11 @@
                         </ul>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
+            <div class="row mb-3">
+                <div class="col-md-6">
                   <div class="d-flex align-items-center gap-2">
                     <a href="{% url 'contatos' %}">
-                      <button class="btn btn-primary text-white">Lider de Equipe</button>
+                      <button class="btn btn-primary text-white"><i class="bi bi-chevron-left"></i> Líderes</button>
                     </a>
                   </div>
                 </div>
@@ -181,8 +181,23 @@
 
     <script>
         $(document).ready(function(){
+
+            let maskBhavior = (val) => {
+                return val.replace(/\D/g, '').length === 9 ? '00000-0000' : '0000-00009';
+              },
+              optionTel = {
+                onKeyPress: function(val, e, field, options) {
+                  field.mask(maskBhavior.apply({}, arguments), options);
+                }
+            }
+
             $('#id_data_nascimento').mask('00/00/0000');
             $('#id_proxima_reuniao').mask('00/00/0000');
+
+            $('#id_ddd').mask('000');
+            $('#id_telefone').mask(maskBhavior, optionTel);
+            $('#id_cpf').mask('000.000.000-00');
+            $('#id_cep').mask('00.000-000');
         });
     </script>
 
