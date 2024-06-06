@@ -3,10 +3,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mais Um{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'assets/js/css/custom.css' %}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        Mais Um
+      {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'assets/js/css/custom.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   </head>
   <body>
     <main id="content-wrapper" class="wrapper">
@@ -15,7 +21,7 @@
       {% endblock %}
     </main>
     {% block javascript %}
-    <script src="{% static 'assets/js/main.bundle.js' %}"></script>
+      <script src="{% static 'assets/js/main.bundle.js' %}"></script>
     {% endblock %}
   </body>
 </html>

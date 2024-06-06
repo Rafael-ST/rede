@@ -98,16 +98,19 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2 col-md-12">
-                                    <label for="">Zona</label>
-                                    {{ form.zonanova }}
+                                    <div class="col-lg-2 col-md-12">
+                                        {{ form.zonanova|as_crispy_field }}
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 col-md-12">
-                                    <label for="">Seção</label>
-                                    {{ form.secaonova }}
+                                    <div class="col-lg-2 col-md-12">
+                                        {{ form.secaonova|as_crispy_field }}
+                                    </div>
+                                    
                                 </div>
                                 <div class="col-lg-4 col-md-12">
-                                    <label for="">Local de votação</label>
-                                    {{ form.localnova }}
+                                    <div class="col-lg-2 col-md-12">
+                                        {{ form.localnova|as_crispy_field }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -133,4 +136,10 @@
         
     </section>
 
+    <script>
+        $(document).ready(function(){
+            $('#id_data_nascimento').mask('00/00/0000');
+            $('#id_proxima_reuniao').mask('00/00/0000');
+        });
+    </script>
 {% endblock %}
