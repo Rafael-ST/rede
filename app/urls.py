@@ -33,4 +33,6 @@ urlpatterns = [
     path('atualizar_amigo/<int:pk>', views.atualizar_amigo, name='atualizar_amigo'),
     path('exportar_lideres', views.exportar_lideres, name='exportar_lideres'),
     path('exportar_amigos/<str:ids>', views.exportar_amigos, name='exportar_amigos'),
+    path('resetar_senha/<int:pk>', views.resetar_senha, name='resetar_senha'),
+    path('change_password/', views.change_password_view, name='change_password'),
 ]

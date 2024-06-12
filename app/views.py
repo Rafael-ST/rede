@@ -17,6 +17,9 @@ from django.db.models import Q
 import pandas as pd
 from django.http import HttpResponse
 
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 
 def index(request):
     if request.method == 'POST':
@@ -52,7 +55,7 @@ def incluir_lider(request):
             password='Tt@123456')
             lider_group = Group.objects.get(name='Lider')
             lider_group.user_set.add(user)
-            messages.success(request, 'Usuário criado com sucesso, passe a senha para o novo usuário: Tt@123456')
+            messages.success(request, f"Usuário {email} criado com sucesso, passe a senha para o novo usuário: Tt@123456")
         else:
             messages.Warning(request, 'Erro ao salvar, verifique os dados e tente novamente')
                   
@@ -195,6 +198,7 @@ def amigos(request):
 
 @login_required(login_url="index")
 def add_lider(request):
+    # email = ''
     lider_grupo = False
     if request.user.is_authenticated and request.user.groups.filter(name='Lider').exists():
         lider_grupo = True
@@ -209,7 +213,7 @@ def add_lider(request):
             password='Tt@123456')
             lider_group = Group.objects.get(name='Lider')
             lider_group.user_set.add(user)
-            messages.success(request, 'Usuário criado com sucesso, passe a senha para o novo usuário: Tt@123456')
+            messages.success(request, f"Usuário {form.cleaned_data['email']} criado com sucesso, passe a senha para o novo usuário: Tt@123456")
             form = LiderDeEquipeForm()
         else:
             for field, errors in form.errors.items():
@@ -411,3 +415,29 @@ def exportar_amigos(request, ids):
         df.to_excel(writer, index=False, sheet_name='Amigo')
 
     return response
+
+
+def resetar_senha(request, pk):
+    lider = LiderDeEquipe.objects.get(pk=pk)
+    try:
+        user = User.objects.get(username=lider.email)
+        user.set_password('Tt@123456')
+        user.save()
+        messages.success(request, f"A senha do usuáro {lider.email} foi resetada com sucesso! Nova senha Tt@123456")
+    except User.DoesNotExist:
+        messages.error(request, 'Usuário não encontrado.')
+    print(lider.email)
+    return redirect('contatos')
+
+
+@login_required
+def change_password_view(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Importante para manter o usuário logado após a mudança de senha
+            return redirect('contatos')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request, 'app/change_password.html', {'form': form})

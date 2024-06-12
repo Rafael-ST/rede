@@ -62,7 +62,7 @@ class Amigo(BaseModel):
     apelido = models.CharField(verbose_name='Apelido', max_length=100, null=True, blank=True)
     data_nascimento = models.DateField(verbose_name='Data de nascimento')
     cpf = models.CharField(max_length=30, verbose_name='CPF', unique=True)
-    nome_mae = models.CharField(max_length=150, verbose_name='Nome da Mãe', null=True, blank=True)
+    nome_mae = models.CharField(max_length=150, verbose_name='Nome da Mãe', null=True)
     nome_pai = models.CharField(max_length=150, verbose_name='Nome do Pai', null=True, blank=True)
     ddd = models.PositiveIntegerField(validators=[MinValueValidator(10), MaxValueValidator(99)],
                                       verbose_name='DDD')

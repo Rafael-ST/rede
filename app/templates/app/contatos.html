@@ -17,6 +17,9 @@
                 </button>
                 <ul class="dropdown-menu p-0">
                     <div class="w-100 d-flex justify-content-center bg-primary rounded">
+                        <a href="{% url 'change_password' %}" class="fw-bold fs-6 my-2 text-white text-decoration-none">Mudar senha</a>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center bg-primary rounded">
                         <a href="{% url 'logout' %}" class="fw-bold fs-6 my-2 text-white text-decoration-none">Sair <i class="bi bi-box-arrow-right ms-2"></i></a>
                     </div>
                 </ul>
@@ -133,6 +136,9 @@
                                 </div>
                             </a>
                             <div class="btn-group" role="group" aria-label="Ações">
+                                <a href="resetar_senha/{{lider.pk}}" class="text-decoration-none">
+                                    <button type="button" class="btn btn-warning me-2 text-white fw-bold"><i class="bi-arrow-clockwise"></i></button>
+                                </a>
                                 <a href="amigos_lider/{{lider.pk}}" class="text-decoration-none">
                                     <button type="button" class="btn btn-info me-2 text-white fw-bold"><i class="bi bi-eye"></i></button>
                                 </a>
